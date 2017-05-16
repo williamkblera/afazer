@@ -108,7 +108,7 @@ class Afazer():
             )
 
             # Espera 60 segundos
-            time.sleep(1)
+            time.sleep(60)
             t -= 1
 
         self.alerta("Afazer", "Fim do Pomodoro")
@@ -148,7 +148,7 @@ class Afazer():
             )
 
             # Espera 60 segundos
-            time.sleep(5)
+            time.sleep(60)
             t -= 1
 
         self.alerta("Afazer", "Fim do Intervalo, hora de retornar ao Trabalho")
