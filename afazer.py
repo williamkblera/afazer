@@ -46,7 +46,9 @@ class Afazer():
         self.pomodoros = 0
 
         # Som de alerta
-        self.sompath = sys.path[0] + '/sino2.wav'
+        self.sominicio = sys.path[0] + '/Inicio.wav'
+        self.somintervalo = sys.path[0] + '/Intervalo.wav'
+        self.somfim = sys.path[0] + '/Fim.wav'
 
         # Icone do Programa
         self.iconpath = sys.path[0] + '/afazer.svg'
@@ -92,6 +94,10 @@ class Afazer():
 
 
     def Pomodoro(self):
+        # Toca som de alerta
+        som = sa.WaveObject.from_wave_file(self.sominicio)
+        som.play()
+
         t = self.tempo_pomodoro
         self.alerta("Afazer", "Pomodoro inciado, concentração e foco!")
         while t > 0:
@@ -123,7 +129,9 @@ class Afazer():
         return
 
     def Intervalo(self):
-
+        # Toca som de alerta
+        som = sa.WaveObject.from_wave_file(self.somintervalo)
+        som.play()
         # Verifica quantos pomodoros já foram
         if self.pomodoros % self.qtd_pomodoros == 0:
             t = self.intervalo_longo
@@ -164,17 +172,15 @@ class Afazer():
             self.app,
             priority=GObject.PRIORITY_DEFAULT
         )
+
+        # Toca som de alerta
+        som = sa.WaveObject.from_wave_file(self.somfim)
+        som.play()
         return
 
 
     # Exibe as notificações e alertas
     def alerta(self, titulo, mensagem):
-
-        # Toca som de alerta
-        som = sa.WaveObject.from_wave_file(self.sompath)
-        som.play()
-        # play_obj = som.play()
-        # play_obj.wait_done()
 
         # Exibe notificação
         Notify.init(self.app)
