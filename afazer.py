@@ -17,7 +17,7 @@
 import simpleaudio as sa
 import signal
 import gi
-import os
+import sys
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -46,17 +46,20 @@ class Afazer():
         self.pomodoros = 0
 
         # Som de alerta
-        self.sompath = os.path.abspath('sino2.wav')
+        self.sompath = sys.path[0] + '/sino2.wav'
+
+        # Icone do Programa
+        self.iconpath = sys.path[0] + '/afazer.svg'
 
         self.indicator = AppIndicator3.Indicator.new(
             self.app,
-            os.path.abspath('afazer.svg'),
+            self.iconpath,
             AppIndicator3.IndicatorCategory.OTHER
         )
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.indicator.set_menu(self.cria_menu())
         self.indicator.set_label("Afazer", self.app)
-        # Notify.init(self.app)
+
 
 
 
@@ -168,8 +171,7 @@ class Afazer():
     def alerta(self, titulo, mensagem):
 
         # Toca som de alerta
-        sompath = os.path.abspath('sino2.wav')
-        som = sa.WaveObject.from_wave_file(sompath)
+        som = sa.WaveObject.from_wave_file(self.sompath)
         som.play()
         # play_obj = som.play()
         # play_obj.wait_done()
